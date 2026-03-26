@@ -28,6 +28,8 @@ featuredImageInput.addEventListener("change", async (event) => {
   const previewUrl = URL.createObjectURL(file);
   activeButton.querySelector("img").src = previewUrl;
 
+  const oldSrc = activeButton.querySelector("img").src;
+
   // TODO: upload + db update here
   try {
     // 1) ask backend for SAS upload URL + public URL
@@ -100,7 +102,16 @@ featuredImageInput.addEventListener("change", async (event) => {
     if (!updateRes.ok) {
       throw new Error("Database update failed");
     }
-  } catch (error) {}
 
-  featuredImageInput.value = "";
+    // 6) replace preview with final Azure URL
+    activeButton.querySelector("img").src = publicUrl;
+    console.log("Upload + full home settings update complete:", publicUrl);
+  } catch (error) {
+    console.error(error);
+    activeButton.querySelector("img").src = oldSrc;
+    alert("Failed to update featured image.");
+  } finally {
+    featuredImageInput.value = "";
+    URL.revokeObjectURL(previewUrl);
+  }
 });

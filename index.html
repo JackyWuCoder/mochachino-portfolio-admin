@@ -103,11 +103,13 @@
           <h2>Featured Works</h2>
           <div class="featured-works">
             <figure class="card">
-              <img
-                src="images/featured/featured1.jpg"
-                alt="portfolio featured image 1"
-              />
-              <figcaption>Digital Illustration</figcaption>
+              <button type="button" class="featured-work-btn" data-slot="1">
+                <img
+                  src="images/featured/featured1.jpg"
+                  alt="portfolio featured image 1"
+                />
+                <figcaption>Digital Illustration</figcaption>
+              </button>
             </figure>
             <figure class="card">
               <img
@@ -189,6 +191,9 @@
           </div>
         </div>
       </footer>
+
+      <!-- Hidden file input -->
+      <input type="file" id="featured-image-input" accept="image/*" hidden />
     </div>
     <script src="script.js"></script>
   </body>

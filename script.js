@@ -80,6 +80,9 @@ featuredImageInput.addEventListener("change", async (event) => {
     }
 
     const homeSettings = await homeRes.json();
+
+    // 4) update only the selected slot in the Local JS object
+    homepageSettings.featuredImages[slot - 1].imageUrl = publicUrl;
   } catch (error) {}
 
   featuredImageInput.value = "";

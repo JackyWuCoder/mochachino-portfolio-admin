@@ -65,7 +65,7 @@ featuredImageInput.addEventListener("change", async (event) => {
     }
 
     // 3) get current homepage settings from DB
-    const updateRes = await fetch(
+    const homeRes = await fetch(
       "http://localhost:8000/api/site-settings/home",
       {
         method: "GET",
@@ -83,6 +83,23 @@ featuredImageInput.addEventListener("change", async (event) => {
 
     // 4) update only the selected slot in the Local JS object
     homepageSettings.featuredImages[slot - 1].imageUrl = publicUrl;
+
+    // 5) send the ENTIRE updated object back to the existing PUT route
+    const updateRes = await fetch(
+      "http://localhost:8000/api/site-settings/home",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(homeSettings),
+      },
+    );
+
+    if (!updateRes.ok) {
+      throw new Error("Database update failed");
+    }
   } catch (error) {}
 
   featuredImageInput.value = "";

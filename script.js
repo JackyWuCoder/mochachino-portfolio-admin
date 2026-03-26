@@ -49,6 +49,20 @@ featuredImageInput.addEventListener("change", async (event) => {
     }
 
     const { uploadUrl, publicUrl } = await sasRes.json();
+
+    // 2) upload file directly to Azure Blob Storage
+    const uploadRes = await fetch(uploadUrl, {
+      method: "PUT",
+      headers: {
+        "x-ms-blob-type": "BlockBlob",
+        "Content-type": file.type || "application/octet-stream",
+      },
+      body: file,
+    });
+
+    if (!uploadRes.ok) {
+      throw new Error("Blob upload failed");
+    }
   } catch (error) {}
 
   featuredImageInput.value = "";

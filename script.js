@@ -80,7 +80,7 @@ featuredImageInput.addEventListener("change", async (event) => {
     const homeSettings = await homeRes.json();
 
     // 4) update only the selected slot in the Local JS object
-    homepageSettings.featuredImages[slot - 1].imageUrl = publicUrl;
+    homeSettings.featuredImages[slot - 1].imageUrl = publicUrl;
 
     // 5) send the ENTIRE updated object back to the existing PUT route
     const updateRes = await fetch(

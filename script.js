@@ -63,6 +63,23 @@ featuredImageInput.addEventListener("change", async (event) => {
     if (!uploadRes.ok) {
       throw new Error("Blob upload failed");
     }
+
+    // 3) get current homepage settings from DB
+    const updateRes = await fetch(
+      "http://localhost:8000/api/site-settings/home",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      },
+    );
+
+    if (!homeRes.ok) {
+      throw new Error("Failed to fetch current home settings");
+    }
+
+    const homeSettings = await homeRes.json();
   } catch (error) {}
 
   featuredImageInput.value = "";

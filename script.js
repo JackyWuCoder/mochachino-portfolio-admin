@@ -35,12 +35,11 @@ featuredImageInput.addEventListener("change", async (event) => {
     // 1) ask backend for SAS upload URL + public URL
     const fileExt = file.name.split(".").pop()?.toLowerCase() || "jpg";
     const sasRes = await fetch(
-      "http://localhost:8000//api/uploads/featured-image-sas",
+      "http://localhost:8000/api/uploads/featured-image-sas",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // adjust if needed
         },
         body: JSON.stringify({ slot, fileExt }),
       },
@@ -71,9 +70,6 @@ featuredImageInput.addEventListener("change", async (event) => {
       "http://localhost:8000/api/site-settings/home",
       {
         method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
       },
     );
 
@@ -93,7 +89,6 @@ featuredImageInput.addEventListener("change", async (event) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: JSON.stringify(homeSettings),
       },
